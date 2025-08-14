@@ -65,6 +65,10 @@ Are you ready to give Aspose.OCR for Python via .NET a try? Simply execute `pip 
 
 ## Perform OCR on PNG Image via Python Code
 
+**Task:** Extract text from a single PNG image with preprocessing filters and table detection mode.
+
+This example demonstrates basic OCR functionality with image preprocessing for recognition of rotated or tilted images with automatic correction, and optimized settings for table recognition.
+
 ```python
 import aspose.ocr as ocr
 
@@ -140,6 +144,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Extract Text from Image with Custom Settings
 
+**Task:** Extract text with detailed line-by-line information including confidence scores and bounding boxes.
+
+This example shows how to configure advanced recognition settings for better accuracy and obtain detailed recognition results with confidence scores and text positioning information. Uses DOCUMENT mode for images with complex structure and columns.
+
 ```python
 import aspose.ocr as ocr
 
@@ -151,8 +159,6 @@ settings = ocr.RecognitionSettings()
 settings.language = ocr.Language.ENG
 settings.threads_count = 4
 settings.detect_areas_mode = ocr.DetectAreasMode.DOCUMENT
-settings.auto_denoising = True
-settings.auto_contrast = True
 
 # Recognize text from image
 result = api.recognize("Data/OCR/sample.png", settings)
@@ -165,6 +171,10 @@ for line in result[0].lines:
 ```
 
 ### Process Multiple Images with Different Languages
+
+**Task:** Process multiple images containing different languages in a single batch operation.
+
+This example demonstrates batch processing capabilities and automatic language detection for multilingual content, allowing you to process images with different languages efficiently. Uses MULTILANGUAGE mode for images with multiple languages or automatic language detection (takes longer to process).
 
 ```python
 import aspose.ocr as ocr
@@ -198,6 +208,10 @@ for i, result in enumerate(results):
 
 ### Save OCR Results to Different Formats
 
+**Task:** Save OCR recognition results to various document formats for different use cases.
+
+This example shows how to export OCR results to different file formats (TXT, DOCX, PDF) to integrate with various document workflows and applications.
+
 ```python
 import aspose.ocr as ocr
 
@@ -221,6 +235,10 @@ print("Results saved to multiple formats successfully!")
 ```
 
 ### Process PDF Documents with Advanced Save Options
+
+**Task:** Extract text from PDF documents and save results to multiple formats with optimization settings.
+
+This example demonstrates advanced PDF processing capabilities including page range selection, multiple output formats (XML, JSON, XLSX, DOCX, TXT, HTML, EPUB, RTF), and PDF optimization for better file size and performance. When input is PDF, save_pdf converts it to searchable PDF.
 
 ```python
 import aspose.ocr as ocr
