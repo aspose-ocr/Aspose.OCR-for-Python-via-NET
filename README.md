@@ -34,6 +34,237 @@ Directory | Description
 
 Aspose.OCR can recognize a large number of languages and all popular writing scripts, including texts with mixed languages.
 
+
+## Load Images for OCR
+
+**Raster Formats:** JPEG, PNG, GIF, BMP, TIFF
+
+## Platform Independence
+
+You can use Aspose.OCR for Python via .NET to develop applications in any development environment that supports Python 3.6 and higher. The library is built on top of .NET Framework, providing cross-platform compatibility.
+
+## Get Started with Aspose.OCR for Python via .NET
+
+Are you ready to give Aspose.OCR for Python via .NET a try? Simply execute `pip install aspose-ocr-python-net` to fetch the package from PyPI. If you already have Aspose.OCR for Python via .NET and want to upgrade the version, please execute `pip install --upgrade aspose-ocr-python-net` to get the latest version.
+
+## Quick Setup
+
+1. **Install the package:**
+   ```bash
+   pip install aspose-ocr-python-net
+   ```
+
+2. **Run examples:**
+   ```bash
+   # Windows
+   run.cmd
+   
+   # Linux/Mac
+   ./run.sh
+   ```
+
+## Perform OCR on PNG Image via Python Code
+
+```python
+import aspose.ocr as ocr
+
+# initialize main class
+api = ocr.AsposeOcr()
+
+# set preprocessing options
+filters = ocr.models.preprocessingfilters.PreprocessingFilter()
+filters.add(ocr.models.preprocessingfilters.PreprocessingFilter.auto_skew())
+
+# Create OcrInput and add images
+input = ocr.OcrInput(ocr.InputType.SINGLE_IMAGE, filters)
+input.add("Data/OCR/sample.png")
+
+# set recognition options
+settings = ocr.RecognitionSettings()
+settings.detect_areas_mode = ocr.DetectAreasMode.TABLE
+settings.threads_count = 1
+settings.language = ocr.Language.ENG
+
+# recognize
+result = api.recognize(input, settings)
+
+# print result
+print(result[0].recognition_text)
+```
+
+## Available Examples
+
+This repository contains the following Python examples:
+
+- **Basic Recognition:**
+  - `recognize.py` - Basic image recognition
+  - `recognize_line.py` - Line-by-line text recognition
+  - `recognize_images_batch.py` - Batch processing of multiple images
+
+- **Specialized Recognition:**
+  - `recognize_handwritten.py` - Handwritten text recognition
+  - `recognize_table.py` - Table structure recognition
+  - `recognize_passport.py` - Passport document recognition
+  - `recognize_car_plate.py` - License plate recognition
+  - `recognize_street_photo.py` - Street sign recognition
+
+- **Advanced Features:**
+  - `recognize_with_language.py` - Multi-language recognition
+  - `recognize_with_spell_check.py` - Spell-checking during recognition
+  - `recognize_with_detect_areas_mode.py` - Custom area detection modes
+  - `calculate_skew.py` - Image skew calculation and correction
+  - `image_text_finder.py` - Text location detection
+
+- **Input Sources:**
+  - `recognize_url.py` - Recognition from URL
+  - `recognize_folder.py` - Recognition from folder
+  - `recognize_archive.py` - Recognition from archive files
+
+- **Output Options:**
+  - `recognize_and_save_result_as_file.py` - Save results to various formats
+
+## Data Directory
+
+The `examples/Data/` directory contains sample images and resources for testing the examples:
+- Various image formats (PNG, JPEG, BMP, etc.)
+- Multi-language text samples
+- Handwritten text samples
+- Table structures
+- Document samples (passports, etc.)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Additional Code Examples
+
+### Extract Text from Image with Custom Settings
+
+```python
+import aspose.ocr as ocr
+
+# Initialize OCR engine
+api = ocr.AsposeOcr()
+
+# Create recognition settings
+settings = ocr.RecognitionSettings()
+settings.language = ocr.Language.ENG
+settings.threads_count = 4
+settings.detect_areas_mode = ocr.DetectAreasMode.DOCUMENT
+settings.auto_denoising = True
+settings.auto_contrast = True
+
+# Recognize text from image
+result = api.recognize("Data/OCR/sample.png", settings)
+
+# Print results
+for line in result[0].lines:
+    print(f"Line: {line.text}")
+    print(f"Confidence: {line.confidence}")
+    print(f"Bounding box: {line.rect}")
+```
+
+### Process Multiple Images with Different Languages
+
+```python
+import aspose.ocr as ocr
+
+# Initialize OCR engine
+api = ocr.AsposeOcr()
+
+# Create input for multiple images
+input = ocr.OcrInput(ocr.InputType.SINGLE_IMAGE)
+
+# Add images with different languages
+input.add("Data/OCR/english_text.png")
+input.add("Data/OCR/spanish_text.png")
+input.add("Data/OCR/russian_text.png")
+
+# Create settings for multi-language recognition
+settings = ocr.RecognitionSettings()
+settings.language = ocr.Language.MULTILANGUAGE
+settings.threads_count = 2
+
+# Process all images
+results = api.recognize(input, settings)
+
+# Print results for each image
+for i, result in enumerate(results):
+    print(f"Image {i+1}:")
+    print(f"Text: {result.recognition_text}")
+    print(f"Language: {result.language}")
+    print("---")
+```
+
+### Save OCR Results to Different Formats
+
+```python
+import aspose.ocr as ocr
+
+# Initialize OCR engine
+api = ocr.AsposeOcr()
+
+# Recognize text from image
+result = api.recognize("Data/OCR/sample.png")
+
+# Save results to different formats using SaveFormat enum
+# Save as plain text
+result[0].save("output.txt", ocr.SaveFormat.TEXT)
+
+# Save as DOCX document
+result[0].save("output.docx", ocr.SaveFormat.DOCX)
+
+# Save as PDF document
+result[0].save("output.pdf", ocr.SaveFormat.PDF)
+
+print("Results saved to multiple formats successfully!")
+```
+
+### Process PDF Documents with Advanced Save Options
+
+```python
+import aspose.ocr as ocr
+import os
+
+# Set license (if you have one)
+# lic = ocr.License()
+# lic.set_license("path/to/license.lic")
+
+# Initialize OCR engine
+api = ocr.AsposeOcr()
+
+# Create input for PDF processing
+input = ocr.OcrInput(ocr.InputType.PDF)
+
+# Add PDF file with page range (pages 0-3)
+file = os.path.join("Data", "pdfs", "multi_page_1.pdf")
+input.add(file, 0, 3)
+
+# Create recognition settings
+settings = ocr.RecognitionSettings()
+settings.detect_areas_mode = ocr.DetectAreasMode.LEAN
+
+# Recognize PDF pages
+result = api.recognize(input, settings)
+
+# Save results with different optimization options
+# Basic save formats
+result.save("test.xml", ocr.SaveFormat.XML)
+result.save("test.json", ocr.SaveFormat.JSON)
+result.save("test.xlsx", ocr.SaveFormat.XLSX)
+result.save("test.docx", ocr.SaveFormat.DOCX)
+result.save("test.txt", ocr.SaveFormat.TEXT)
+result.save("test.html", ocr.SaveFormat.HTML)
+result.save("test.epub", ocr.SaveFormat.EPUB)
+result.save("test.rtf", ocr.SaveFormat.RTF)
+
+# Save as PDF with optimization
+result.save_pdf("test.pdf", "", ocr.PdfOptimizationMode.AGGRESSIVE)
+
+print("PDF processing completed and results saved!")
+```
+
+
 ## Supported Languages
 
 Aspose.OCR for Python via .NET supports a wide range of languages and scripts:
@@ -209,106 +440,5 @@ Aspose.OCR for Python via .NET supports a wide range of languages and scripts:
 - **Devanagari (DEVANAGARI)** - Universal recognition of Indic languages based on Devanagari script
 - **PersoArabic (PERSOARABIC)** - Universal Perso-Arabic alphabet
 - **Islamic (ISLAMIC)** - Universal Perso-Arabic alphabet
-
-## Load Images for OCR
-
-**Raster Formats:** JPEG, PNG, GIF, BMP, TIFF
-
-## Platform Independence
-
-You can use Aspose.OCR for Python via .NET to develop applications in any development environment that supports Python 3.6 and higher. The library is built on top of .NET Framework, providing cross-platform compatibility.
-
-## Get Started with Aspose.OCR for Python via .NET
-
-Are you ready to give Aspose.OCR for Python via .NET a try? Simply execute `pip install aspose-ocr-python-net` to fetch the package from PyPI. If you already have Aspose.OCR for Python via .NET and want to upgrade the version, please execute `pip install --upgrade aspose-ocr-python-net` to get the latest version.
-
-## Quick Setup
-
-1. **Install the package:**
-   ```bash
-   pip install aspose-ocr-python-net
-   ```
-
-2. **Run examples:**
-   ```bash
-   # Windows
-   run.cmd
-   
-   # Linux/Mac
-   ./run.sh
-   ```
-
-## Perform OCR on PNG Image via Python Code
-
-```python
-import aspose.ocr as ocr
-
-# initialize main class
-api = ocr.AsposeOcr()
-
-# set preprocessing options
-filters = ocr.models.preprocessingfilters.PreprocessingFilter()
-filters.add(ocr.models.preprocessingfilters.PreprocessingFilter.auto_skew())
-
-# Create OcrInput and add images
-input = ocr.OcrInput(ocr.InputType.SINGLE_IMAGE, filters)
-input.add("Data/OCR/sample.png")
-
-# set recognition options
-settings = ocr.RecognitionSettings()
-settings.detect_areas_mode = ocr.DetectAreasMode.TABLE
-settings.threads_count = 1
-settings.language = ocr.Language.ENG
-
-# recognize
-result = api.recognize(input, settings)
-
-# print result
-print(result[0].recognition_text)
-```
-
-## Available Examples
-
-This repository contains the following Python examples:
-
-- **Basic Recognition:**
-  - `recognize.py` - Basic image recognition
-  - `recognize_line.py` - Line-by-line text recognition
-  - `recognize_images_batch.py` - Batch processing of multiple images
-
-- **Specialized Recognition:**
-  - `recognize_handwritten.py` - Handwritten text recognition
-  - `recognize_table.py` - Table structure recognition
-  - `recognize_passport.py` - Passport document recognition
-  - `recognize_car_plate.py` - License plate recognition
-  - `recognize_street_photo.py` - Street sign recognition
-
-- **Advanced Features:**
-  - `recognize_with_language.py` - Multi-language recognition
-  - `recognize_with_spell_check.py` - Spell-checking during recognition
-  - `recognize_with_detect_areas_mode.py` - Custom area detection modes
-  - `calculate_skew.py` - Image skew calculation and correction
-  - `image_text_finder.py` - Text location detection
-
-- **Input Sources:**
-  - `recognize_url.py` - Recognition from URL
-  - `recognize_folder.py` - Recognition from folder
-  - `recognize_archive.py` - Recognition from archive files
-
-- **Output Options:**
-  - `recognize_and_save_result_as_file.py` - Save results to various formats
-
-## Data Directory
-
-The `examples/Data/` directory contains sample images and resources for testing the examples:
-- Various image formats (PNG, JPEG, BMP, etc.)
-- Multi-language text samples
-- Handwritten text samples
-- Table structures
-- Document samples (passports, etc.)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 [Home](https://www.aspose.com/) | [Product Page](https://products.aspose.com/ocr/python-net) | [Docs](https://docs.aspose.com/ocr/python-net/) | [Demos](https://products.aspose.app/ocr/family) | [API Reference](https://apireference.aspose.com/ocr/python-net) | [Examples](https://github.com/aspose-ocr/Aspose.OCR-for-Python-via-NET) | [Blog](https://blog.aspose.com/category/ocr/) | [Search](https://search.aspose.com/) | [Free Support](https://forum.aspose.com/c/ocr) | [Temporary License](https://purchase.aspose.com/temporary-license)
